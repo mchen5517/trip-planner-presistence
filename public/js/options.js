@@ -17,10 +17,16 @@ $(function(){
   var $restaurantSelect = $optionsPanel.find('#restaurant-choices');
   var $activitySelect = $optionsPanel.find('#activity-choices');
 
+$.get('/api/attractions')
+.then(function(attractions){
   // make all the option tags (second arg of `forEach` is a `this` binding)
-  hotels.forEach(makeOption, $hotelSelect);
-  restaurants.forEach(makeOption, $restaurantSelect);
-  activities.forEach(makeOption, $activitySelect);
+  attractions.hotels.forEach(makeOption, $hotelSelect);
+  attractions.restaurants.forEach(makeOption, $restaurantSelect);
+  attractions.activities.forEach(makeOption, $activitySelect);
+})
+.catch(function(err){
+
+})
 
   function makeOption (databaseAttraction) {
     var $option = $('<option></option>') // makes a new option tag
