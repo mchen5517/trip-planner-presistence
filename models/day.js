@@ -11,11 +11,10 @@ var Day = db.define('day', {
     }
   },
   hooks: {
-    beforeValidate: function(){
+    afterCreate: function(user, options, fn){
       Day.max('number')
       .then(function(maxNum){
-        console.log("MAXNUM ", maxNum);
-        this.setDataValue("number", (maxNum + 1) || 1);
+        return user.update({ number: ((maxNum + 1) || 1)});
       })
     }
   }
